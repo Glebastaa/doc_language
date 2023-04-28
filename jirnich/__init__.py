@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from .database import db
+from .main.views import main
 
 
 def create_app():
@@ -11,13 +12,7 @@ def create_app():
     with app.test_request_context():
         db.create_all()
 
-    import jirnich.main.views as main
-    #Пока не разобрался, как это работает.
-    #app.register_blueprint(main.module)
-
-    @app.route('/')
-    def index():
-        return 'Hello!'
+    app.register_blueprint(main)
 
     return app
 
