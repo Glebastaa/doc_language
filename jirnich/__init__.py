@@ -1,6 +1,6 @@
 import os
 from flask import Flask
-from .database import db
+from .database import init_db
 from .main.views import main
 
 
@@ -8,9 +8,8 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(os.environ['APP_SETTINGS'])
 
-    db.init_app(app)
-    with app.test_request_context():
-        db.create_all()
+    with app.app_context():
+        init_db(app)
 
     app.register_blueprint(main)
 
