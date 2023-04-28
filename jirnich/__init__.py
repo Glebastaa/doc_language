@@ -1,19 +1,34 @@
-import os
-from flask import Flask
-from .database import db
-from .main.views import main
+from flask import Flask, jsonify
+import psycopg2
 
+app = Flask(__name__)
 
-def create_app():
-    app = Flask(__name__)
-    app.config.from_object(os.environ['APP_SETTINGS'])
+# Функция для создания соединения с базой данных
+def get_db_conn():
+    return psycopg2.connect(
+        host="localhost",
+        port=5432,
+        dbname="testdb",
+        user="postgres",
+        password="mypassword"
+    )
 
-    db.init_app(app)
-    with app.test_request_context():
-        db.create_all()
+# Маршрут для вывода "Hello"
+@app.route('/')
+def hello():
+    return "Hello"
 
-    app.register_blueprint(main)
+# Маршрут для получения списка элементов из базы данных
+@app.route('/items')
+def get_items():
+    conn = get_db_conn()
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM items")
+    rows = cur.fetchall()
+    items = [{'id': row[0], 'text': row[1]} for row in rows]
+    cur.close()
+    conn.close()
+    return jsonify(items)
 
-    return app
-
-    
+if __name__ == '__main__':
+    app.run()
