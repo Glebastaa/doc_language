@@ -1,20 +1,10 @@
-import psycopg2
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine
 
 db = SQLAlchemy()
 
 
-class Text(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.Text, unique=False)
-
-
-def get_db_connection():
-    conn = psycopg2.connect(
-        host="localhost",
-        port=5432,
-        dbname="testdb",
-        user="postgres",
-        password="mypassword"
-    )
-    return conn
+def init_db(app):
+    engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
+    db.metadata.create_all(engine)
+    db.session.commit()
