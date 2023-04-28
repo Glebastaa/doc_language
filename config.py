@@ -4,7 +4,7 @@ import os
 class Config(object):
     DEBUG = True
     CSRF_ENABLED = True
-    SECRET_KEY = 'YOUR_RANDOM_SECRET_KEY'
+    SECRET_KEY = 'GREGOR BZISHTOVSKII'
     #Тут нужны настройки для бызы постгреса. Пока на костыле.
     #SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
     SQLALCHEMY_DATABASE_URI = 'sqlite:///blog.db'
