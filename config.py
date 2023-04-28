@@ -5,9 +5,7 @@ class Config(object):
     DEBUG = True
     CSRF_ENABLED = True
     SECRET_KEY = 'YOUR_RANDOM_SECRET_KEY'
-    #Тут нужны настройки для бызы постгреса. Пока на костыле.
-    #SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///blog.db'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://user:password@localhost:5432/db_name'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class ProductionConfig(Config):
