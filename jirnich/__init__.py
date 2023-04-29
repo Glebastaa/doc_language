@@ -21,7 +21,10 @@ def create_app():
 
     migrate = Migrate(app, db)
     mail = Mail(app)
+
+    # Авторизация.
     login_manager = LoginManager(app)
+    login_manager.login_view = 'auth.login'
 
     @login_manager.user_loader
     def load_user(user_id):
