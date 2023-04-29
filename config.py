@@ -5,7 +5,7 @@ class Config(object):
     DEBUG = True
     CSRF_ENABLED = True
     SECRET_KEY = 'GREGOR BZISHROVSKII'
-    SQLALCHEMY_DATABASE_URI = 'postgresql://user:password@localhost:5432/db_name'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:password@localhost:5432/jirnich'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class ProductionConfig(Config):
