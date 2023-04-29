@@ -1,27 +1,27 @@
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, Float, String, DateTime, Boolean
-import datetime
+from datetime import datetime
+
+from jirnich.database import db
 
 
-DeclBase = declarative_base()
-
-
-class User(DeclBase):
+class User(db.Model):
     __tablename__ = 'users'
-    id = Column(Integer, primary_key=True)
-    username = Column(String(16))
-    created = Column(DateTime, default=datetime.datetime.utcnow)
-    email = Column(String(30), nullable=False, unique=True)
-    password_hash = Column(String(100), nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(16), nullable=False)
+    email = db.Column(db.String(30), nullable=False, unique=True)
+    password_hash = db.Column(db.String(100), nullable=False)
+    created = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f'{self.id}: {self.username}'
 
 
-class Text(DeclBase):
+class Text(db.Model):
     __tablename__ = 'Text'
-    id = Column(Integer, primary_key=True)
-    text = Column(String)
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.Text, nullable=False)
 
     def __init__(self, text):
         self.text = text
 
-
-DeclBase.create_all()
+    def __repr__(self):
+        return f'Text: {self.id}'
