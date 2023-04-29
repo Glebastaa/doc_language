@@ -8,4 +8,4 @@ app = create_app()
 
 if __name__ == '__main__':
     #Manager из flask-script не работает, ебанул напрямик, костыль.
-    app.run()
+    app.run(debug=True)
