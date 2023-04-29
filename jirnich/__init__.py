@@ -1,11 +1,14 @@
 import os
 
 from flask import Flask
+from flask_login import LoginManager
+from flask_mail import Mail
 from flask_migrate import Migrate
 
 from jirnich.database import db
 from jirnich.main.views import main
-from jirnich.users.views import users
+from jirnich.models import User
+from jirnich.auth.views import auth
 
 
 def create_app():
@@ -17,8 +20,14 @@ def create_app():
         db.create_all()
 
     migrate = Migrate(app, db)
+    mail = Mail(app)
+    login_manager = LoginManager(app)
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return db.session.query(User).get(user_id)
 
     app.register_blueprint(main)
-    app.register_blueprint(users)
+    app.register_blueprint(auth)
 
     return app
