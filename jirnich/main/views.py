@@ -1,8 +1,7 @@
-from flask import Blueprint, render_template, redirect, request
+from flask import Blueprint, redirect, render_template, request
 
 from jirnich.database import db
 from jirnich.models import Text
-
 
 main = Blueprint('main', __name__)
 
@@ -12,6 +11,7 @@ def index():
     """Главная страница."""
     text_obj = Text.query.first()
     return render_template('index.html', text_obj=text_obj)
+
 
 @main.route('/create', methods=['POST', 'GET'])
 def create():
@@ -23,7 +23,7 @@ def create():
             db.session.add(txt)
             db.session.commit()
             return redirect('/')
-        except:
+        except Exception:
             return 'Ошибка!!!'
 
     return render_template('create.html')
