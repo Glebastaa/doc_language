@@ -9,7 +9,7 @@
                 {% if current_user.is_authenticated %}
                   <a class="" href="{{ url_for('auth.logout') }}">Выйти</a>
                 {% else %}
-                  <a class="" href="#">Войти</a>
+                  <a class="" href="{{ url_for('auth.login') }}">Войти</a>
                 {% endif %}
             </nav>
         </div>
