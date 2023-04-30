@@ -1,10 +1,9 @@
-from flask import Blueprint, render_template, redirect, flash, url_for
+from flask import Blueprint, flash, redirect, render_template, url_for
 from flask_login import login_required, login_user
 
+from jirnich.auth.forms import LoginForm
 from jirnich.database import db
 from jirnich.models import User
-from .forms import LoginForm
-
 
 auth = Blueprint('auth', __name__)
 
@@ -20,15 +19,17 @@ def login():
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember.data)
             return redirect(url_for('main.index'))
-        
+
         flash("Неправильный логин/пароль", 'error')
         return redirect(url_for('auth.login'))
     return render_template('auth/login.html', form=form)
 
-@auth.route('/signup')
+
+@auth.route('/signup', methods=['POST', 'GET'])
 def signup():
     "Отрисовывает форму регистрации"
     return render_template('auth/signup.html')
+
 
 @auth.route('/logout')
 @login_required

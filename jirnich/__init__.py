@@ -5,10 +5,10 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_migrate import Migrate
 
+from jirnich.auth.views import auth
 from jirnich.database import db
 from jirnich.main.views import main
 from jirnich.models import User
-from jirnich.auth.views import auth
 
 
 def create_app():
