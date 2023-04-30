@@ -1,5 +1,5 @@
 from flask import Blueprint, flash, redirect, render_template, url_for
-from flask_login import current_user, login_required, login_user
+from flask_login import current_user, login_required, login_user, logout_user
 
 from jirnich.auth.forms import LoginForm, SignUpForm
 from jirnich.database import db
@@ -48,4 +48,6 @@ def signup():
 @auth.route('/logout')
 @login_required
 def logout():
-    return 'logout'
+    logout_user()
+    flash("Вы разлогинились!")
+    return redirect(url_for('main.index'))
