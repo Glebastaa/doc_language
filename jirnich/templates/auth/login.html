@@ -1,42 +1,36 @@
 {% extends "base.html" %}
 
-
 {% block content %}
-<div class="">
-  <div class="col align-self-center">
-  {% for category, message in get_flashed_messages(with_categories=true) %}
-    <div class="{{ category }} alert alert-danger">
-      {{ message }}
+<div class="column is-4 is-offset-4">
+    <h3 class="title">Вход</h3>
+    <div class="box">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="notification is-danger">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+        {% endwith %}
+        <form method="POST" action="/login">
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="email" name="email" placeholder="Логын" autofocus="">
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <input class="input is-large" type="password" name="password" placeholder="Пасворт">
+                </div>
+            </div>
+            <div class="field">
+                <label class="checkbox">
+                    <input type="checkbox">
+                    Запомнить
+                </label>
+            </div>
+            <button class="button is-block is-info is-large is-fullwidth">Войти</button>
+        </form>
     </div>
-  {% endfor %}
-  <form action="" method="post">
-    {{ form.csrf_token }}
-    <p>
-      {{ form.username.label() }}
-      {{ form.username() }}
-      {% if form.username.errors %}
-        {% for error in form.username.errors %}
-          {{ error }}
-        {% endfor %}
-      {% endif %}
-    </p>
-    <p>
-      {{ form.password.label() }}
-      {{ form.password() }}
-      {% if form.password.errors %}
-        {% for error in form.password.errors %}
-          {{ error }}
-        {% endfor %}
-      {% endif %}
-    </p>
-    <p>
-      {{ form.remember.label() }}
-      {{ form.remember() }}
-    </p>
-    <p>
-      {{ form.submit() }}
-    </p>
-  </form>
-</div>
 </div>
 {% endblock %}
