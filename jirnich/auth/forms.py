@@ -29,9 +29,10 @@ class SignUpForm(FlaskForm):
             EqualTo('password', message='Passwords must match')
         ]
     )
+    submit = SubmitField()
 
     # Переопределяем валидацию и добавляем новые проверки.
-    def validate(self):
+    def validate(self, extra_validators=None):
         initial_validation = super(SignUpForm, self).validate()
         if not initial_validation:
             return False
@@ -40,6 +41,6 @@ class SignUpForm(FlaskForm):
             self.email.errors.append('Почта уже зарегистрирована!')
             return False
         if self.password.data != self.confirm.data:
-            self.password.errors.append('Пароли не сходятся!')
+            self.password.errors.append('Пароли не совпадают!')
             return False
         return True
