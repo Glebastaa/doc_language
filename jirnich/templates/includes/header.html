@@ -8,6 +8,9 @@
             <nav class="">
                 {% if current_user.is_authenticated %}
                   <a class="" href="{{ url_for('auth.logout') }}">Выйти</a>
+                  {{ current_user.username }}
+                {% elif request.path=="/login" %}
+                  <a class="" href="{{ url_for('auth.signup') }}">Зарегистрироваться</a>
                 {% else %}
                   <a class="" href="{{ url_for('auth.login') }}">Войти</a>
                 {% endif %}
