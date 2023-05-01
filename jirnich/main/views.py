@@ -1,8 +1,8 @@
 from flask import Blueprint, redirect, render_template, request
+from googletrans import Translator
 
 from jirnich.database import db
 from jirnich.models import Text
-from googletrans import Translator
 
 main = Blueprint('main', __name__)
 
