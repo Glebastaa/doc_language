@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  {{ text_obj.text }}
+  {% for word in text_obj.text.split() %}
+  <a href="#" class="translate" data-original-text="{{ word }}">{{ word }}</a>
+  {% endfor %}
+  {% include 'includes/translate.html' %}
 {% endblock %}
