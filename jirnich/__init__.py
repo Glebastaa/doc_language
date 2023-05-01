@@ -25,6 +25,7 @@ def create_app():
     # Авторизация.
     login_manager = LoginManager(app)
     login_manager.login_view = 'auth.login'
+    login_manager.init_app(app)
 
     @login_manager.user_loader
     def load_user(user_id):

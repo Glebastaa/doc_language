@@ -39,7 +39,7 @@ def signup():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
-        login_user(user)
+        login_user(user, remember=form.remember.data)
         return redirect(url_for('main.index'))
 
     return render_template('auth/signup.html', form=form)

@@ -35,8 +35,8 @@
       </div>
       <div class="field">
         <label class="checkbox">
-          <input type="checkbox" name="remember">
-          Запомнить меня
+          {{ form.remember }}
+          Запомнить
         </label>
       </div>
       {{ form.submit(class_="button is-block is-info is-large is-fullwidth", value_="Зарегистрироваться")}}

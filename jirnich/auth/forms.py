@@ -29,6 +29,7 @@ class SignUpForm(FlaskForm):
             EqualTo('password', message='Passwords must match')
         ]
     )
+    remember = BooleanField('Remember Me')
     submit = SubmitField()
 
     # Переопределяем валидацию и добавляем новые проверки.
