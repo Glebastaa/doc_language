@@ -2,6 +2,7 @@ from flask import Blueprint, redirect, render_template, request
 
 from jirnich.database import db
 from jirnich.models import Text
+from googletrans import Translator
 
 main = Blueprint('main', __name__)
 
@@ -27,3 +28,11 @@ def create():
             return 'Ошибка!!!'
 
     return render_template('create.html')
+
+
+@main.route('/translate')
+def translate():
+    text = request.args.get('text')
+    translator = Translator()
+    translated_text = translator.translate(text, src='en', dest='ru').text
+    return translated_text
