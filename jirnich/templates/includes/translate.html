@@ -2,19 +2,45 @@
 <script>
 $(document).ready(function() {
     $(".translate").click(function(e) {
-    e.preventDefault();
-    var word = $(this).text();
-    var originalText = $(this).data("original-text");
-    var target = e.target;
-    if (originalText === word) {
+        e.preventDefault();
+        var word = $(this).text();
+        var originalText = $(this).data("original-text");
+        var target = e.target;
+        var targetOffset = $(target).offset();
+    
+        if (originalText === word) {
         $.get("/translate", {text: word}, function(translatedText) {
-        $(target).text(translatedText);
-        $(target).data("original-text", originalText);
+            // создаем новый элемент для отображения перевода
+            var translationDiv = $('<div>').addClass('translation').text(translatedText);
+            // создаем обертку для переведенного слова
+            var wrapper = $('<div>').addClass('wrapper');
+            // позиционируем элемент под словом
+            wrapper.css({
+            position: 'absolute',
+            top: targetOffset.top + $(target).outerHeight() + 20,
+            left: targetOffset.left
+            });
+            // добавляем новый элемент в тело документа
+            $('body').append(wrapper);
+            // добавляем элемент для отображения перевода в обертку
+            wrapper.append(translationDiv);
+            $(target).data("original-text", originalText);
+    
+            // удаляем обертку и элемент для отображения перевода при клике на любой элемент на странице
+            $(document).click(function(e) {
+            var clickedElement = e.target;
+            if (!$(clickedElement).closest('.wrapper').length) {
+                $('.wrapper').remove();
+                $(target).data("original-text", word);
+                $(document).unbind('click');
+            }
+            });
         });
-    } else {
-        $(target).text(originalText);
+        } else {
+        // удаляем элемент для отображения перевода и обертку
+        $('.wrapper').remove();
         $(target).data("original-text", word);
-    }
+        }
     });
-});
+    });
 </script>
