@@ -10,11 +10,12 @@
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <title>{% block title %}Читай текст и учись{% endblock %}</title>
 </head>
-<body class="main-st">
+<body class="main-green">
   {% include 'includes/header.html' %}
-  {% include 'includes/switcher.html' %}
-  <div class="container">
-    {% block content %}Нема <{% endblock %}
+  <div class="wrapper">
+    <div class="container content">
+      {% block content %}Нема <{% endblock %}
+    </div>
   </div>
   {% include 'includes/footer.html' %}
 </body>

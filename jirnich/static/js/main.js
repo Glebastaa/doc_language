@@ -1,3 +1,3 @@
-function changeBodyBg(color){
-    document.body.style.background = color;
+function changeBodyBg(cls){
+    document.body.className = cls;
 }
