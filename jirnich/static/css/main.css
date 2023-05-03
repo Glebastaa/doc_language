@@ -78,3 +78,17 @@ html {
   .footer {
     flex: 0 0 auto;
   }
+
+  .wrapper-trans {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(192, 32, 32, 0.2);
+    border-radius: 3px;
+    padding: 3px;
+    z-index: 9999;
+  }
+  
+  .translation {
+    font-size: 15px;
+    line-height: 1.5;
+  }
