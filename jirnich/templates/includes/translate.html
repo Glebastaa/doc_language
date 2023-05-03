@@ -13,7 +13,7 @@ $(document).ready(function() {
             // создаем новый элемент для отображения перевода
             var translationDiv = $('<div>').addClass('translation').text(translatedText);
             // создаем обертку для переведенного слова
-            var wrapper = $('<div>').addClass('wrapper');
+            var wrapper = $('<div>').addClass('wrapper-trans');
             // позиционируем элемент под словом
             wrapper.css({
             position: 'absolute',
@@ -29,8 +29,8 @@ $(document).ready(function() {
             // удаляем обертку и элемент для отображения перевода при клике на любой элемент на странице
             $(document).click(function(e) {
             var clickedElement = e.target;
-            if (!$(clickedElement).closest('.wrapper').length) {
-                $('.wrapper').remove();
+            if (!$(clickedElement).closest('.wrapper-trans').length) {
+                $('.wrapper-trans').remove();
                 $(target).data("original-text", word);
                 $(document).unbind('click');
             }
@@ -38,7 +38,7 @@ $(document).ready(function() {
         });
         } else {
         // удаляем элемент для отображения перевода и обертку
-        $('.wrapper').remove();
+        $('.wrapper-trans').remove();
         $(target).data("original-text", word);
         }
     });
