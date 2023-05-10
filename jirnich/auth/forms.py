@@ -45,3 +45,23 @@ class SignUpForm(FlaskForm):
             self.password.errors.append('Пароли не совпадают!')
             return False
         return True
+
+
+class ForgotPasswordForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Сброс пароля')
+
+
+class PasswordForm(FlaskForm):
+    password = PasswordField('Пароль', validators=[DataRequired()])
+    confirm = PasswordField('Повтор', validators=[DataRequired()])
+    submit = SubmitField('Изменить пароль')
+
+    def validate(self, extra_validators=None):
+        initial_validation = super(PasswordForm, self).validate()
+        if not initial_validation:
+            return False
+        if self.password.data != self.confirm.data:
+            self.password.errors.append('Пароли не совпадают!')
+            return False
+        return True

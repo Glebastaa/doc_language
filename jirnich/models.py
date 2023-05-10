@@ -1,6 +1,9 @@
-from datetime import datetime
+import os
+from datetime import datetime, timedelta
 
+from flask import current_app
 from flask_login import UserMixin
+from jwt import encode
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from jirnich.database import db
@@ -24,6 +27,13 @@ class User(db.Model, UserMixin):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def get_reset_token(self):
+        return encode(
+            {'reset_password': self.username,
+             'exp': datetime.utcnow() + timedelta(minutes=30)},
+            current_app.config['SECRET_KEY']
+        )
 
 
 class Text(db.Model):
