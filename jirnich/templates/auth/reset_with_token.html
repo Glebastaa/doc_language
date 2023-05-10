@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="column is-4 is-offset-4">
+    <h3 class="title">Сброс пароля</h3>
+    <div class="box">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="notification is-danger">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+        {% endwith %}
+        <form method="POST" action="{{ url_for('auth.reset_with_token', token=token) }}">
+            {{ form.csrf_token }}
+            <div class="field">
+                <div class="control">
+                  {{ form.password(class_="input is-large", placeholder_="Пароль")}}
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  {{ form.confirm(class_="input is-large", placeholder_="Повторите пароль")}}
+                </div>
+              </div>
+            {{ form.submit(class_="button is-block is-info is-large is-fullwidth", value_="Сбросить") }}
+        </form>
+    </div>
+</div>
+{% endblock %}
