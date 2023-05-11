@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, request
+from flask import Blueprint, redirect, render_template, request, session
 from googletrans import Translator
 
 from jirnich.database import db
@@ -36,3 +36,11 @@ def translate():
     translator = Translator()
     translated_text = translator.translate(text, src='en', dest='ru').text
     return translated_text
+
+
+@main.route('/change-theme/<theme>')
+def change_theme(theme):
+    """Switch theme in session."""
+    session['theme'] = theme
+    referrer = request.referrer
+    return redirect(referrer)

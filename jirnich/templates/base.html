@@ -10,7 +10,7 @@
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <title>{% block title %}Читай текст и учись{% endblock %}</title>
 </head>
-<body class="main-green">
+<body class="{{session['theme']}}">
   {% include 'includes/header.html' %}
   <div class="wrapper">
     <div class="container content">

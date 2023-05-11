@@ -1,6 +1,6 @@
 <div class="color-picker float-left">
-    <div class="color green" onclick="changeBodyBg('main-green');"></div>
-    <div class="color gray" onclick="changeBodyBg('main-gray');"></div>
-    <div class="color white" onclick="changeBodyBg('main-white');"></div>
+    <div class="color green" onclick="location.href='{{ url_for('main.change_theme', theme='main-green')}}';"></div>
+    <div class="color gray" onclick="location.href='{{ url_for('main.change_theme', theme='main-gray')}}';"></div>
+    <div class="color white" onclick="location.href='{{ url_for('main.change_theme', theme='main-white')}}';"></div>
 </div>
   
